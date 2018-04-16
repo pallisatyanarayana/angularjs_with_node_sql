@@ -1,15 +1,16 @@
 var app=angular.module("mysampleApp",[]);
 app.controller("mycontroller",['$scope','empService',function($scope,empService)
 {
-    $scope.id=0;
+    $scope.ids=1002;
     $scope.doSearch=function()
     {
-        empService.getEmpId($scope.id,function(result)
+        empService.getEmpId($scope.ids,function(result)
         {
-            $scope.id=result.id;
-            $scope.name=result.name;
-            $scope.address=result.address;
-            $scope.phno=result.phno;
+            $scope.sum=result;
+            // $scope.id=result.id;
+            // $scope.name=result.name;
+            // $scope.address=result.address;
+            // $scope.phno=result.phno;
         });
     }
 
@@ -19,18 +20,19 @@ app.controller("mycontroller",['$scope','empService',function($scope,empService)
 
 app.service("empService",['$http','$log',function($http,$log)
 {
-    this.getEmpId=function(id,cb)
+    this.getEmpId=function(ids,cb)
     {
         
         $http({
-            url:"http://localhost:1818/api/data/"+id,
+            url:"http://localhost:1818/api/data?id="+ids,
             method:"GET"
         }).then(function(resp)
             {
                 cb(resp.data);
+                $log.log(resp.data);
          },function(resp)
         {
-            $log.log("ERROR occured..");
+            $log.error("ERROR occured in js..");
         });
     }
 }]);
