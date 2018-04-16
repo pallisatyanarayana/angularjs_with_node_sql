@@ -24,7 +24,7 @@ app.service("empService",['$http','$log',function($http,$log)
     {
         
         $http({
-            url:"http://localhost:1818/api/data?id="+ids,
+            url:"http://localhost:1818/api/data/"+ids,
             method:"GET"
         }).then(function(resp)
             {
